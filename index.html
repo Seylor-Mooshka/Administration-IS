@@ -6,6 +6,8 @@
     <title>Dark Academia Library</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Cinzel:wght@400;600&display=swap" rel="stylesheet">
+
+    <!-- Внутренний стиль -->
     <style>
         * {
             margin: 0;
@@ -44,7 +46,6 @@
             padding: 20px;
         }
 
-        /* Header Styles */
         .header {
             text-align: center;
             padding: 30px 0;
@@ -81,7 +82,6 @@
             margin: 0 auto;
         }
 
-        /* Stats */
         .stats {
             display: flex;
             justify-content: center;
@@ -115,7 +115,6 @@
             letter-spacing: 1px;
         }
 
-        /* Filters */
         .filter-container {
             display: flex;
             justify-content: center;
@@ -159,7 +158,6 @@
             box-shadow: 0 0 15px rgba(200, 169, 113, 0.4);
         }
 
-        /* Bookshelf */
         .bookshelf {
             background: linear-gradient(to bottom, var(--dark-wood), #2a2118);
             height: 35px;
@@ -193,7 +191,6 @@
             border-radius: 6px 6px 0 0;
         }
 
-        /* Books Grid */
         .books-container {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
@@ -335,7 +332,6 @@
             transform: scale(1.1);
         }
 
-        /* Add Book Button */
         .add-book-btn {
             position: fixed;
             bottom: 40px;
@@ -361,7 +357,6 @@
             box-shadow: 0 0 25px rgba(200, 169, 113, 0.7);
         }
 
-        /* Modal Styles */
         .modal {
             display: none;
             position: fixed;
@@ -428,7 +423,6 @@
             padding-bottom: 15px;
         }
 
-        /* Form Styles */
         .book-form {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -553,7 +547,6 @@
             box-shadow: 0 0 10px rgba(200, 169, 113, 0.3);
         }
 
-        /* Rating */
         .rating {
             display: flex;
             gap: 8px;
@@ -576,7 +569,6 @@
             color: var(--accent-gold);
         }
 
-        /* Book Details */
         .book-details {
             display: grid;
             grid-template-columns: 1fr 2fr;
@@ -627,7 +619,6 @@
             font-size: 1.1rem;
         }
 
-        /* Animations */
         @keyframes bookAppear {
             from {
                 opacity: 0;
@@ -655,7 +646,6 @@
         .book:nth-child(9) { animation-delay: 0.9s; }
         .book:nth-child(10) { animation-delay: 1.0s; }
 
-        /* Responsive Design */
         @media (max-width: 1100px) {
             .books-container {
                 grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
@@ -723,7 +713,6 @@
             }
         }
 
-        /* Empty State */
         .empty-state {
             text-align: center;
             padding: 60px 40px;
@@ -747,7 +736,6 @@
             margin-bottom: 25px;
         }
 
-        /* Decorative Elements */
         .decoration {
             position: absolute;
             opacity: 0.03;
@@ -777,6 +765,8 @@
         }
     </style>
 </head>
+
+<!-- Основной скрипт -->
 <body>
     <i class="fas fa-quote-right decoration decoration-1"></i>
     <i class="fas fa-feather-alt decoration decoration-2"></i>
@@ -822,7 +812,7 @@
             <span class="shelf-label">2024</span>
         </div>
         <div class="books-container" id="booksContainer">
-            <!-- Книги будут добавляться здесь через JavaScript -->
+            <!-- Книги будут добавляться через JavaScript -->
         </div>
         
         <div class="bookshelf">
@@ -912,14 +902,14 @@
         <div class="modal-content">
             <span class="close-modal" id="closeDetailModal">&times;</span>
             <div class="book-details" id="bookDetails">
-                <!-- Детали книги будут добавляться здесь через JavaScript -->
+                <!-- Детали книги будут добавляться через JavaScript -->
             </div>
         </div>
     </div>
 
+    <!-- JavaScript -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Элементы DOM
             const booksContainer = document.getElementById('booksContainer');
             const addBookBtn = document.getElementById('addBookBtn');
             const bookModal = document.getElementById('bookModal');
@@ -936,8 +926,7 @@
             const readBooksEl = document.getElementById('readBooks');
             const toReadBooksEl = document.getElementById('toReadBooks');
             const favoriteBooksEl = document.getElementById('favoriteBooks');
-            
-            // Текущий фильтр и выбранная книга
+
             let currentFilter = 'all';
             let selectedBookId = null;
             let currentRating = 0;
