@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Статистика | Dark Academia Library</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Cinzel:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <i class="fas fa-quote-right decoration decoration-1"></i>
+    <i class="fas fa-feather-alt decoration decoration-2"></i>
+    <i class="fas fa-book decoration decoration-3"></i>
+
+    <div class="header">
+        <div class="container">
+            <h1>Тёмная Академия</h1>
+            <p>Собрание литературных произведений для учёных умов</p>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="nav-container">
+            <a href="index.html" class="nav-btn">Мои книги</a>
+            <a href="stats.html" class="nav-btn active">Статистика</a>
+        </div>
+
+        <h2 style="text-align: center; margin-bottom: 30px; color: var(--accent-gold); font-family: 'Cinzel', serif;">Ваша статистика</h2>
+
+        <div class="charts-container">
+            <div class="chart">
+                <h3 class="chart-title">Книги по жанрам</h3>
+                <canvas id="genreChart"></canvas>
+            </div>
+
+            <div class="chart">
+                <h3 class="chart-title">Прочитано по месяцам</h3>
+                <canvas id="monthlyChart"></canvas>
+            </div>
+        </div>
+
+        <div class="achievements">
+            <div class="achievement">
+                <div class="achievement-icon">
+                    <i class="fas fa-book"></i>
+                </div>
+                <div class="achievement-title">Первая книга</div>
+                <div class="achievement-description">Вы добавили свою первую книгу</div>
+            </div>
+
+            <div class="achievement">
+                <div class="achievement-icon">
+                    <i class="fas fa-star"></i>
+                </div>
+                <div class="achievement-title">10 прочитанных книг</div>
+                <div class="achievement-description">Вы прочитали 10 книг</div>
+            </div>
+
+            <div class="achievement">
+                <div class="achievement-icon">
+                    <i class="fas fa-trophy"></i>
+                </div>
+                <div class="achievement-title">Классик</div>
+                <div class="achievement-description">Прочитано 5 классических произведений</div>
+            </div>
+
+            <div class="achievement locked">
+                <div class="achievement-icon">
+                    <i class="fas fa-crown"></i>
+                </div>
+                <div class="achievement-title">Мастер</div>
+                <div class="achievement-description">Прочитано 50 книг</div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="js/charts.js"></script>
+</body>
+</html>
