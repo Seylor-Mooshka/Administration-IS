@@ -71,6 +71,29 @@ body {
     margin: 0 auto;
 }
 
+.email-btn {
+    margin-top: 20px;
+    background: transparent;
+    border: 1px solid var(--accent-bronze);
+    color: var(--accent-gold);
+    padding: 10px 20px;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: 'Cinzel', serif;
+    letter-spacing: 1px;
+}
+
+.email-btn:hover {
+    background: var(--accent-bronze);
+    color: var(--dark-bg);
+    box-shadow: 0 0 15px rgba(200, 169, 113, 0.4);
+}
+
+.email-btn i {
+    margin-right: 8px;
+}
+
 .stats {
     display: flex;
     justify-content: center;
@@ -697,6 +720,11 @@ body {
         font-size: 1rem;
     }
 
+    .email-btn {
+        padding: 8px 15px;
+        font-size: 0.9rem;
+    }
+
     .modal-content {
         padding: 30px 20px;
     }
@@ -785,6 +813,76 @@ body {
 
 .nav-btn:hover {
     color: var(--light-text);
+}
+
+/* Email Modal Styles */
+#emailModal .modal-content {
+    max-width: 600px;
+    text-align: center;
+}
+
+#emailModal .modal-title {
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+    color: var(--accent-gold);
+}
+
+#emailModal p {
+    margin-bottom: 25px;
+    line-height: 1.6;
+    color: var(--light-text);
+    font-size: 1.1rem;
+}
+
+#emailForm .form-group {
+    margin-bottom: 25px;
+}
+
+#emailForm input[type="email"] {
+    padding: 14px;
+    font-size: 1.1rem;
+    text-align: center;
+    background: rgba(25, 22, 18, 0.8);
+    border: 1px solid var(--accent-bronze);
+    border-radius: 8px;
+    color: var(--light-text);
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto;
+    display: block;
+}
+
+#emailForm .form-actions {
+    justify-content: center;
+    gap: 20px;
+}
+
+#emailForm .btn {
+    padding: 12px 28px;
+    font-size: 1.05rem;
+    min-width: 120px;
+}
+
+.email-status {
+    margin-top: 18px;
+    font-size: 1rem;
+    font-style: italic;
+    min-height: 24px;
+    transition: color 0.3s ease;
+}
+
+.email-status.error {
+    color: var(--error);
+}
+
+.email-status.success {
+    color: var(--success);
+    animation: pulse 1s;
+}
+
+@keyframes pulse {
+    0% { opacity: 0.5; }
+    100% { opacity: 1; }
 }
 
 /* Страница статистики */
