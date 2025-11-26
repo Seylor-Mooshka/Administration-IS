@@ -17,10 +17,23 @@ document.addEventListener('DOMContentLoaded', function() {
     const toReadBooksEl = document.getElementById('toReadBooks');
     const favoriteBooksEl = document.getElementById('favoriteBooks');
 
+    // Элементы email-модалки
+    const emailModal = document.getElementById('emailModal');
+    const closeEmailModal = document.getElementById('closeEmailModal');
+    const cancelEmailBtn = document.getElementById('cancelEmailBtn');
+    const requestEmailBtn = document.getElementById('requestEmailBtn');
+    const emailForm = document.getElementById('emailForm');
+    const emailStatus = document.getElementById('emailStatus');
+    const userEmailInput = document.getElementById('userEmail');
+
     let currentFilter = 'all';
     let selectedBookId = null;
     let currentRating = 0;
     let coverImage = null;
+
+    // Настройки EmailJS
+    const SERVICE_ID = "service_u3us4nq"; 
+    const TEMPLATE_ID = "template_4uxfkyh"; 
 
     // Пример начальных данных
     const sampleBooks = [
@@ -111,7 +124,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     ];
 
-    // Загружаем книги из localStorage или используем примеры
+    // Загружаем книги из localStorage
     let books = JSON.parse(localStorage.getItem('books'));
 
     // Если нет книг в localStorage, сохраняем примеры
@@ -489,7 +502,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    // Обработчики событий
+    // Обработчики событий для основного функционала
     if (addBookBtn) {
         addBookBtn.addEventListener('click', () => {
             if (bookModal) bookModal.style.display = 'flex';
@@ -548,6 +561,111 @@ document.addEventListener('DOMContentLoaded', function() {
             if (detailModal) detailModal.style.display = 'none';
         }
     });
+
+    // ---------- EmailJS функционал ---------- //
+
+    // Валидация email в реальном времени
+    if (userEmailInput) {
+        userEmailInput.addEventListener('input', function() {
+            const email = this.value.trim();
+            const isValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+            
+            if (emailStatus) {
+                emailStatus.textContent = email && !isValid ? 'Неверный формат email' : '';
+                emailStatus.className = email && !isValid ? 'email-status error' : 'email-status';
+            }
+        });
+    }
+
+    // Открытие модалки
+    if (requestEmailBtn) {
+        requestEmailBtn.addEventListener('click', () => {
+            if (emailModal) {
+                emailModal.style.display = 'flex';
+                if (emailStatus) {
+                    emailStatus.textContent = '';
+                    emailStatus.className = 'email-status';
+                }
+                if (emailForm) emailForm.reset();
+            }
+        });
+    }
+
+    // Закрытие модалки
+    function closeEmailModalHandler() {
+        if (emailModal) emailModal.style.display = 'none';
+        if (emailStatus) {
+            emailStatus.textContent = '';
+            emailStatus.className = 'email-status';
+        }
+    }
+
+    if (closeEmailModal) closeEmailModal.addEventListener('click', closeEmailModalHandler);
+    if (cancelEmailBtn) cancelEmailBtn.addEventListener('click', closeEmailModalHandler);
+
+    if (emailModal) {
+        window.addEventListener('click', (e) => {
+            if (e.target === emailModal) closeEmailModalHandler();
+        });
+    }
+
+    // Отправка письма через EmailJS
+    if (emailForm) {
+        emailForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const email = document.getElementById('userEmail').value.trim();
+            const isValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+
+            if (!email || !isValid) {
+                if (emailStatus) {
+                    emailStatus.textContent = 'Пожалуйста, введите корректный email.';
+                    emailStatus.classList.add('error');
+                }
+                return;
+            }
+
+            if (emailStatus) {
+                emailStatus.textContent = 'Отправка...';
+                emailStatus.classList.remove('error');
+                emailStatus.classList.remove('success');
+            }
+
+            try {
+                const templateParams = {
+                    user_email: email,
+                    to_name: "Дорогой читатель",
+                    from_name: "Библиотека Тёмной Академии",
+                    message: "Спасибо, что вы с нами. Мы ценим ваш интерес к литературе и надеемся, что наша библиотека вдохновит вас на новые открытия."
+                };
+
+                const response = await emailjs.send(SERVICE_ID, TEMPLATE_ID, templateParams);
+
+                console.log('EmailJS Success:', response);
+
+                if (emailStatus) {
+                    emailStatus.textContent = 'Письмо отправлено! Проверьте почту 📩';
+                    emailStatus.classList.add('success');
+                    emailStatus.classList.remove('error');
+                }
+
+                // Закрыть модалку (2 секунды)
+                setTimeout(() => {
+                    closeEmailModalHandler();
+                    emailForm.reset();
+                }, 2000);
+
+            } catch (error) {
+                console.error('EmailJS Error:', error);
+                if (emailStatus) {
+                    emailStatus.textContent = `Ошибка отправки: ${error.text || 'Неизвестная ошибка'}`;
+                    emailStatus.classList.add('error');
+                    emailStatus.classList.remove('success');
+                }
+            }
+        });
+    }
+
+    // ---------- Инициализация ---------- //
 
     // Инициализация
     if (bookForm) {
